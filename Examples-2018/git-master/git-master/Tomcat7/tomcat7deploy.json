@@ -1,0 +1,30 @@
+{
+    "variables":
+        {
+            "accesskey": "",
+            "secretkey": ""
+        },
+     "builders": [
+         {
+            "type": "amazon-ebs",
+            "region": "ap-southeast-1",
+            "source_ami": "ami-039950f07c4a0d878",
+            "instance_type": "t2.micro",
+            "ssh_username": "ubuntu",
+            "ami_name": "image_from_packer",
+            "access_key": "{{user `accesskey`}}",
+            "secret_key": "{{user `secretkey`}}"
+
+         }
+     ],
+     "provisioners": [
+         {
+             "type": "shelll",
+             "script": "./gameoflife.sh"
+
+         }
+     ]
+
+
+    
+}

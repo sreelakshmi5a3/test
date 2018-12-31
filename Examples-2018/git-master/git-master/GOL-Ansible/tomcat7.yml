@@ -1,0 +1,23 @@
+---
+- hosts: NODE
+  become: yes
+  tasks:
+  - name: Install Tomcat7
+    package:
+      name: tomcat7
+      update_cache: yes
+      state: present
+    notify:
+    - Restart Tomcat7
+  - name: Deploy Package
+    copy:
+      src: /var/lib/jenkins/workspace/gol_build/gameoflife-web/target/gameoflife.war
+      dest: /var/lib/tomcat7/webapps/gameoflife.war
+    notify:
+    - Restart Tomcat7
+  handlers:
+  - name: Restart Tomcat7
+    service:
+      name: tomcat7
+      enabled: yes
+      state: restarted

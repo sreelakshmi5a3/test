@@ -1,0 +1,29 @@
+---
+# tasks file for nodejs
+- name: download node js
+  get_url:
+    url: https://deb.nodesource.com/setup_6.x
+    dest: /home/ansible/nodesource_setup.sh
+- name: run node js script
+  command: bash nodesource_setup.sh >> log.txt
+- name: install node js
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ nodejs_package }}"
+- name: crete file hello.js
+  file:
+    path: /home/ansible/hello.js
+    state: touch
+- name: copy hello.js
+  template:
+    src: hello.js.j2
+    dest: /home/ansible/hello.js
+- name: changing hello.js permissions
+  command: chmod +x ./hello.js
+- name: install npm packages
+  command: npm install -g pm2
+- name: start hello.js
+  command: pm2 start hello.js        
+
+            

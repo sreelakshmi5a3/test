@@ -1,0 +1,18 @@
+---
+- hosts: webServer
+  become: yes
+  tasks:
+  - name: installing tomcat
+    apt:
+      name: tomcat7
+      state: present
+      update_cache: yes
+  - name: copy gol war file
+    copy:
+      src: gameoflife.war
+      dest: /var/lib/tomcat/webapps/gameoflife.war 
+  - name: restart tomcat7
+    service:
+      name: tomcat7
+      enabled: yes
+      state: restarted     

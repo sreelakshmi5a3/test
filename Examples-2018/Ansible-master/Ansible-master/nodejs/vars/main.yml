@@ -1,0 +1,7 @@
+---
+# vars file for nodejs
+nodejs_packages:
+  - nodejs
+  - build-essential
+private_ip:
+  - 172.31.46.26 
